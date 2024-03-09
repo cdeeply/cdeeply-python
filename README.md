@@ -24,7 +24,7 @@ Generates a x->y prediction network using *supervised* training on `trainingSamp
 * `trainingSampleOutputs` has dimensions `numTargetOutputs` and `numSamples`, and stores the training output *as calculated by the server*.  This is mainly a check that the data went through the pipes OK.  If you don't care, ignore the return value.
 
 `trainingSampleOutputs = myNN.tabular_encoder(trainingSamples, sampleTableTranspose, importances=[],`  
-`        doEncoder=True, doDecoder=True, numEncodingFeatures=1, numVariationalFeatures=0, variationalDist="NORMAL_DIST",`  
+`        doEncoder=True, doDecoder=True, numEncodingFeatures=1, numVariationalFeatures=0, variationalDistribution="NORMAL_DIST",`  
 `        maxWeights="NO_MAX", maxHiddenNeurons="NO_MAX", maxLayers="NO_MAX", maxLayerSkips="NO_MAX", ifNNhasBias=True)`
 
 Generates an autoencoder (or an encoder or decoder) using *unsupervised* training on `trainingSamples`.
@@ -32,7 +32,7 @@ Generates an autoencoder (or an encoder or decoder) using *unsupervised* trainin
 * `sampleTableTranspose` and `importances` are set the same way as for `tabular_regressor(...)`.
 * The size of the encoding is determined by `numEncodingFeatures`.
   * So-called variational features are extra randomly-distributed inputs used by the decoder, analogous to the extra degrees of freedom a variational autoencoder generates.
-  * `variationalDist` is set to `"UNIFORM_DIST"` if the variational inputs are uniformly-(0, 1)-distributed, or `"NORMAL_DIST"` if they are normally distributed (zero mean, unit variance).
+  * `variationalDistribution` is set to `"UNIFORM_DIST"` if the variational inputs are uniformly-(0, 1)-distributed, or `"NORMAL_DIST"` if they are normally distributed (zero mean, unit variance).
 * Set `doEncoder` to `False` for a decoder-only network.
 * Set `doDecoder` to `False` for an encoder-only network.
 * The last 5 parameters are set the same way as for `tabular_regressor(...)`.
