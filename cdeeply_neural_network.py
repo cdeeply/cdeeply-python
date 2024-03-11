@@ -87,7 +87,7 @@ class CDNN:
             "allowIO": self.ifChecked(allowIOconnections),
             "submitStatus": "Submit",
             "NNtype": "regressor",
-            "formSource": "R_API"
+            "formSource": "Python_API"
         }
     
         return self.buildCDNN(formDict, numOutputs, numSamples, indexOrder)
@@ -129,7 +129,7 @@ class CDNN:
             "hasBias": self.ifChecked(hasBias),
             "submitStatus": "Submit",
             "NNtype": "autoencoder",
-            "formSource": "R_API"
+            "formSource": "Python_API"
         }
         
         if doDecoder:
