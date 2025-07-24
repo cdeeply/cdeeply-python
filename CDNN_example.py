@@ -22,33 +22,35 @@ for cf in range(numFeatures):
 
 NN = cdeeply_neural_network.CDNN()
 
-for c2 in range(2):
+for csc in range(2):
+    for c2 in range(2):
+        
+        
+            # train a neural network from our matrix
+        
+        print("Generating " + NNtypes[c2])
+        if c2 == 0:
+            outputsComputedByServer = NN.tabular_encoder(trainTestMat[range(numSamples)], "SAMPLE_FEATURE_ARRAY",
+                numEncodingFeatures=1, doEncoder=True, doDecoder=True, sparseWeights=(csc==1))
+            firstSampleOutputs = array(NN.runSample(trainTestMat[0]))       # make a copy; otherwise will be overwritten by the next function call
+            testSampleOutputs = NN.runSample(trainTestMat[numSamples])
+        else:
+            outputsComputedByServer = NN.tabular_regressor(trainTestMat[range(numSamples)], "SAMPLE_FEATURE_ARRAY", [numFeatures], sparseWeights=(csc==1))
+            firstSampleOutputs = array(NN.runSample(trainTestMat[0, range(numFeatures-1)]))
+            testSampleOutputs = NN.runSample(trainTestMat[numSamples, range(numFeatures-1)])
+        
+        if max(abs(firstSampleOutputs[0, :]-outputsComputedByServer[0, :])) > .0001:         # sanity check using output 1
+            raise ValueError(["  ** Network problem?  Sample 1 output was calculated as " + str(firstSampleOutputs[0, :]) \
+                + " locally vs " + str(outputsComputedByServer[0, :]) + " by the server"])
+        
+        
+            # run the network on the test sample
+        
+        if c2 == 0:
+            targetValue = trainTestMat[-1, 0]
+            targetDescription = "reconstructed feature 1"
+        else:
+            targetValue = trainTestMat[-1, -1]
+            targetDescription = "output"
+        print("  Test sample:  " + targetDescription + " was %g; target value was %g" % (testSampleOutputs[0, 0], targetValue))
     
-    
-        # train a neural network from our matrix
-    
-    print("Generating " + NNtypes[c2])
-    if c2 == 0:
-        outputsComputedByServer = NN.tabular_encoder(trainTestMat[range(numSamples)], "SAMPLE_FEATURE_ARRAY",
-            numEncodingFeatures=1, doEncoder=True, doDecoder=True)
-        firstSampleOutputs = array(NN.runSample(trainTestMat[0]))       # make a copy; otherwise will be overwritten by the next function call
-        testSampleOutputs = NN.runSample(trainTestMat[numSamples])
-    else:
-        outputsComputedByServer = NN.tabular_regressor(trainTestMat[range(numSamples)], "SAMPLE_FEATURE_ARRAY", [numFeatures])
-        firstSampleOutputs = array(NN.runSample(trainTestMat[0, range(numFeatures-1)]))
-        testSampleOutputs = NN.runSample(trainTestMat[numSamples, range(numFeatures-1)])
-    
-    if max(abs(firstSampleOutputs[0, :]-outputsComputedByServer[0, :])) > .0001:         # sanity check using output 1
-        raise ValueError(["  ** Network problem?  Sample 1 output was calculated as " + str(firstSampleOutputs[0, :]) \
-            + " locally vs " + str(outputsComputedByServer[0, :]) + " by the server"])
-    
-    
-        # run the network on the test sample
-    
-    if c2 == 0:
-        targetValue = trainTestMat[-1, 0]
-        targetDescription = "reconstructed feature 1"
-    else:
-        targetValue = trainTestMat[-1, -1]
-        targetDescription = "output"
-    print("  Test sample:  " + targetDescription + " was %g; target value was %g" % (testSampleOutputs[0, 0], targetValue))
