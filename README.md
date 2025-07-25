@@ -9,11 +9,14 @@ Put cdeeply_neural_network.py into a reachable directory, then:
 
 **Function definitions:**
 
-`trainingSampleOutputs = myNN.tabular_regressor(trainingSamples, sampleTableTranspose, outputRowOrColumnList, importances=[],`  
-`        maxWeights="NO_MAX", maxHiddenNeurons="NO_MAX", maxLayers="NO_MAX", maxWeightDepth="NO_MAX", maxActivationRate=1.,`  
-`        maxWeightsHardLimit=True, maxHiddenNeuronsHardLimit=True, maxActivationsHardLimit=True, allowedAFs=[True,True,True,True,True], `  
-`        ifQuantizeWeights=False, wQuantBits=0, wQuantZeroInt=0, wQuantRange=1., `  
-`        ifQuantizeActivations=False, yQuantBits=0, yQuantZeroInt=0, yQuantRange=1., `  
+`trainingSampleOutputs = myNN.tabular_regressor(trainingSamples, sampleTableTranspose,`  
+`        outputRowOrColumnList, importances=[],`  
+`        maxWeights="NO_MAX", maxHiddenNeurons="NO_MAX", maxLayers="NO_MAX",`  
+`        maxWeightDepth="NO_MAX", maxActivationRate=1.,`  
+`        maxWeightsHardLimit=True, maxHiddenNeuronsHardLimit=True, maxActivationsHardLimit=True,`  
+`        allowedAFs=[True,True,True,True,True],`  
+`        ifQuantizeWeights=False, wQuantBits=0, wQuantZeroInt=0, wQuantRange=1.,`  
+`        ifQuantizeActivations=False, yQuantBits=0, yQuantZeroInt=0, yQuantRange=1.,`  
 `        sparseWeights=False, allowNegativeWeights=True, hasBias=True, allowIOconnections=True)`
 
 Generates a x->y prediction network using *supervised* training on `trainingSamples`.
@@ -31,11 +34,14 @@ Generates a x->y prediction network using *supervised* training on `trainingSamp
 * `trainingSampleOutputs` has dimensions `numTargetOutputs` and `numSamples`, and stores the training output *as calculated by the server*.  This is mainly a check that the data went through the pipes OK.  If you don't care, ignore the return value.
 
 `trainingSampleOutputs = myNN.tabular_encoder(trainingSamples, sampleTableTranspose, importances=[],`  
-`        doEncoder=True, doDecoder=True, numEncodingFeatures=1, numVariationalFeatures=0, variationalDistribution="NORMAL_DIST",`  
-`        maxWeights="NO_MAX", maxHiddenNeurons="NO_MAX", maxLayers="NO_MAX", maxWeightDepth="NO_MAX", maxActivationRate=1.,`  
-`        maxWeightsHardLimit=True, maxHiddenNeuronsHardLimit=True, maxActivationsHardLimit=True, allowedAFs=[True,True,True,True,True], `  
-`        ifQuantizeWeights=False, wQuantBits=0, wQuantZeroInt=0, wQuantRange=1., `  
-`        ifQuantizeActivations=False, yQuantBits=0, yQuantZeroInt=0, yQuantRange=1., `  
+`        doEncoder=True, doDecoder=True, numEncodingFeatures=1,`  
+`        numVariationalFeatures=0, variationalDistribution="NORMAL_DIST",`  
+`        maxWeights="NO_MAX", maxHiddenNeurons="NO_MAX", maxLayers="NO_MAX",`  
+`        maxWeightDepth="NO_MAX", maxActivationRate=1.,`  
+`        maxWeightsHardLimit=True, maxHiddenNeuronsHardLimit=True, maxActivationsHardLimit=True,`  
+`        allowedAFs=[True,True,True,True,True],`  
+`        ifQuantizeWeights=False, wQuantBits=0, wQuantZeroInt=0, wQuantRange=1.,`  
+`        ifQuantizeActivations=False, yQuantBits=0, yQuantZeroInt=0, yQuantRange=1.,`  
 `        sparseWeights=False, allowNegativeWeights=True, ifNNhasBias=True)`
 
 Generates an autoencoder (or an encoder or decoder) using *unsupervised* training on `trainingSamples`.
